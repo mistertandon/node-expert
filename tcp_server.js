@@ -18,7 +18,7 @@ var netServer = NET
 		 */
 		netServer.getConnections(function (err, countConnection) {
 
-			console.log('Toal number of clients connected : ' + countConnection);
+			console.log('Toal number of clients connected : ' + countConnection + " | #10001");
 		})
 
 		/**
@@ -26,7 +26,7 @@ var netServer = NET
 		 */
 		socket.on("connect", function () {
 
-			console.log('Connection has been made by server');
+			console.log('Connection has been made by server. | #10002');
 		});
 
 		/**
@@ -40,7 +40,7 @@ var netServer = NET
 			 * 
 			 * socket.write('Reply from TCP server : ' + JSON.stringify(data) + '\n');
 			 */
-			socket.write('Reply from TCP server : ' + data + '\n');
+			socket.write('Reply from TCP server : ' + data + '| #10003\n');
 
 			/**
 			 * `SOCKET_UTIL.socketStates` is a local module used to retrieve `bytesRead` and
@@ -61,7 +61,7 @@ var netServer = NET
 		 */
 		socket.on('close', function () {
 
-			console.log('Connection get closed.\n');
+			console.log('Connection get closed.| #10004\n');
 		});
 
 		/**
@@ -75,7 +75,7 @@ var netServer = NET
 			 * when server `end` event emitted.
 			 */
 			SOCKET_UTIL.socketStates(socket);
-			console.log('Connection get ended.\n');
+			console.log('Connection get ended.| #10005\n');
 		});
 
 		/**
@@ -83,7 +83,7 @@ var netServer = NET
 		 */
 		socket.on('error', function (error) {
 
-			console.log('something went wrong, please try after some time.\n');
+			console.log('something went wrong, please try after some time. | #10006\n');
 
 			/**
 			 * socket.destroy("Connection end event has been emitted.\n"); // triggers only close event.
@@ -93,6 +93,27 @@ var netServer = NET
 			 */
 		});
 
+		/**
+		 * How we can set idle time period for a user.
+		 * 
+			socket.setTimeout(3000);
+			socket.on("timeout", function () {
+
+				socket.end('`socket.end` event emitted as a result of `socket-timeout` event.');
+			});
+		 *
+		 */
+
+		/**
+		 * `socket.end` method will triggered after 20 seconds idle time with any
+		 *	connected TCP client.
+
+		setTimeout(function () {
+
+			socket.end("\n triggers server end event as idle timeout has been completed | #10000");
+		}, 20000);
+		 *
+		 */
 	});
 
 /**
@@ -105,18 +126,23 @@ netServer.maxConnections = 2;
  */
 netServer.on("close", function () {
 
-	console.log("\nThis message got printed from server `close` event handler.");
+	console.log("\nThis message got printed from server `close` event handler.| #10007");
 });
 
+/**
+ * How we can execute server.close method automatically afte a set time interval.
+ * 
 setTimeout(
 	function () {
 
 		netServer.close(function () {
 
-			console.log('\nMessage got printed using `setTimeout` function.');
+			console.log('\nMessage got printed using `setTimeout` function.| #10008');
 		});
 	},
 	10000);
+*
+*/
 
 /**
  * Server listening event definition with call-back.
@@ -127,5 +153,5 @@ netServer.listen(3091, function () {
 	 * Accessing bound address, family and port reported by operating sysytem.
 	 */
 	console.log(JSON.stringify(netServer.address()));
-	console.log('server is listening at port 3091');
+	console.log('server is listening at port 3091. | #10009');
 });
