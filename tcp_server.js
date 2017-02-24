@@ -1,14 +1,19 @@
 const NET = require('net');
-
+const SOCKET_UTIL = require('./socket_util');
 /**
  * `netServer` contain create server instance.
  */
 var netServer = NET.createServer(function (socket) {
 
 	/**
+	 * Getting details about TCP-server and TCP-client.
+	 */
+	SOCKET_UTIL.socketAddress(socket);
+
+	/**
 	 * When `connect` event occur, execute following callback.
 	 */
-	socket.on('connect', function () {
+	socket.on("connect", function () {
 
 		console.log('Connection has been made by server');
 	});
