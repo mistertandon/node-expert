@@ -11,6 +11,14 @@ var netServer = NET.createServer(function (socket) {
 	SOCKET_UTIL.socketAddress(socket);
 
 	/**
+	 * `netServer.getConnections` function used to retrieve connected
+	 *	clients with server.
+	 */
+	netServer.getConnections(function (err, countConnection) {
+
+		console.log('Toal number of clients connected : ' + countConnection);
+	})
+	/**
 	 * When `connect` event occur, execute following callback.
 	 */
 	socket.on("connect", function () {
