@@ -4,7 +4,7 @@ var countWriteOperation = 0;
 
 var clientSocket = NET.connect({
 	port: 3091, host: '127.0.0.1', allowHalfOpen: true
-}, function () {
+}, function (socket) {
 
 	/**
 	 * writing on socket to trigger `data` event.
