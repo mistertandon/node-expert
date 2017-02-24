@@ -1,4 +1,5 @@
 const NET = require('net');
+const SOCKET_UTIL = require('./socket_util');
 
 var clientSocket = NET.connect({
 	port: 3091, host: '127.0.0.1', allowHalfOpen: true
@@ -17,6 +18,8 @@ clientSocket.setEncoding('utf8');
  * Socket `data` event handler.
  */
 clientSocket.on("data", function (data) {
+
+	SOCKET_UTIL.socketAddress(clientSocket);
 
 	console.log('Data from server : ' + data + ' | #20000');
 	clientSocket.destroy();
