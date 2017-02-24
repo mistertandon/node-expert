@@ -44,8 +44,9 @@ var netServer = NET
 
 			/**
 			 * How we can emmit event, here we are emitting error event.
+			 * 
+			 * socket.emit("error", new Error("Manually emitting error."));
 			 */
-			socket.emit("error", new Error("Manually emitting error."));
 
 		});
 
@@ -76,9 +77,9 @@ var netServer = NET
 			/**
 			 * socket.destroy("Connection end event has been emitted.\n"); // triggers only close event.
 			 * `socket.end()` triggers `end` and `close` event.
+			 * 
+			 * socket.end("Connection end event has been emitted.\n");
 			 */
-			socket.end("Connection end event has been emitted.\n");
-
 		});
 
 	});
@@ -87,6 +88,25 @@ var netServer = NET
  * `netServer.maxConnections` configure `max connection` server can have.
  */
 netServer.maxConnections = 2;
+
+/**
+ * Alternative way to handle server `close` event.
+ */
+netServer.on("close", function () {
+
+	console.log("This message got printed from server `close` event handler.");
+});
+
+setTimeout(
+	function () {
+
+		netServer.close(function () {
+
+			console.log('Server has been close using `setTimeout`');
+		});
+	},
+	5000);
+
 /**
  * Server listening event definition with call-back.
  */
