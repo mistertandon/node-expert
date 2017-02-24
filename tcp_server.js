@@ -44,5 +44,9 @@ var netServer = NET.createServer(function (socket) {
  */
 netServer.listen(3091, function () {
 
+	/**
+	 * Accessing bound address, family and port reported by operating sysytem.
+	 */
+	console.log(JSON.stringify(netServer.address()));
 	console.log('server is listening at port 3091');
 });
