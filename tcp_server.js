@@ -43,6 +43,12 @@ var netServer = NET
 			socket.write('Reply from TCP server : ' + data + '\n');
 
 			/**
+			 * `SOCKET_UTIL.socketStates` is a local module used to retrieve `bytesRead` and
+			 * `bytesWritten` information as any `data` event emitted..
+			 * 
+			 * 	SOCKET_UTIL.socketStates(socket);
+			 */
+			/**
 			 * How we can emmit event, here we are emitting error event.
 			 * 
 			 * socket.emit("error", new Error("Manually emitting error."));
@@ -64,6 +70,11 @@ var netServer = NET
 		 */
 		socket.on('end', function () {
 
+			/**
+			 * `SOCKET_UTIL.socketStates` module retrieve all the 'Read & Write' bytes
+			 * when server `end` event emitted.
+			 */
+			SOCKET_UTIL.socketStates(socket);
 			console.log('Connection get ended.\n');
 		});
 
@@ -94,7 +105,7 @@ netServer.maxConnections = 2;
  */
 netServer.on("close", function () {
 
-	console.log("This message got printed from server `close` event handler.");
+	console.log("\nThis message got printed from server `close` event handler.");
 });
 
 setTimeout(
@@ -102,10 +113,10 @@ setTimeout(
 
 		netServer.close(function () {
 
-			console.log('Server has been close using `setTimeout`');
+			console.log('\nMessage got printed using `setTimeout` function.');
 		});
 	},
-	5000);
+	10000);
 
 /**
  * Server listening event definition with call-back.
