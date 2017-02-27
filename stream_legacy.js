@@ -18,6 +18,8 @@ rs.setEncoding('utf8');
 rs.on("data", function (chunk) {
 
 	console.log(chunk);
+	console.log("length of chunk : " + chunk.length);
+
 	++totalChunks;
 });
 
