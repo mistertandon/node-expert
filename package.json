@@ -7,7 +7,8 @@
     "node-inspector": "^0.12.8"
   },
   "devDependencies": {
-    "node-inspector": "^0.12.8"
+    "node-inspector": "^0.12.8",
+    "nodemon": "^1.11.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
